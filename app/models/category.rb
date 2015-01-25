@@ -1,3 +1,6 @@
 class Category < ActiveRecord::Base
-  t.string :name
+  has_many :post_categories
+  has_many :posts, through: :post_categories
+
+  validates :name, presence: true
 end
