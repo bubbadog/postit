@@ -27,4 +27,3 @@
   - heroku restart
   - heroku run console
   - heroku help
-

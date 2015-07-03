@@ -15,7 +15,6 @@ class PostsController < ApplicationController
   end
 
   def create
-
     @post = Post.new(post_params)
     @post.creator = current_user # TODO: changed from User.first once we have authentitcation
 
@@ -40,14 +39,19 @@ class PostsController < ApplicationController
   end
 
   def vote
-    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+    @vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
 
-    if vote.valid?
-      flash[:notice] = 'Your vote was counted.'
-    else
-      flash[:error] = 'You can only vote once on a post.'
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "Your vote was counted"}
+      format.js
+
     end
-    redirect_to :back
+    # if vote.valid?
+    #   flash[:notice] = 'Your vote was counted.'
+    # else
+    #   flash[:error] = 'You can only vote once on a post.'
+    # end
+    # redirect_to :back
   end
 
   private
@@ -57,7 +61,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by slug: params[:id]
   end
 
 end
