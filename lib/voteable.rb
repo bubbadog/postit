@@ -17,7 +17,6 @@ module Voteable
     end
 end
 
-
 # module Voteable
 #
 #   def self.included(base)
