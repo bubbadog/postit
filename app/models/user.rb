@@ -25,13 +25,12 @@ class User < ActiveRecord::Base
   end
 
   def send_pin_to_twilio
-     
-    auth_token = '[AuthToken]'
 
+    user_phone = "+1" + "#{self.phone}"
+    msg = "Hi, please input the pin to continue login: #{self.pin}"
     # set up a client to talk to the Twilio REST API
-    @client = Twilio::REST::Client.new account_sid, auth_token
-
-    @client.account.messages.create({   })
+    client = Twilio::REST::Client.new ENV["ACCOUNT_SID"], ENV["AUTH_TOKEN"]
+    client.account.messages.create({ :from => ENV["TWILIO_PHONE_NUMBER"], :to => phone, :body => msg })
   end
 
   def admin?

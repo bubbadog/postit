@@ -4,7 +4,7 @@
   <%= form_tag '/login' do %>
     <div class='control-group'>
       <%= label_tag :username %>
-      <%= text_field_tag :username %>
+      <%= text_field_tag :username, nil, autofocus: true, :placeholder => "Your username here" %>
     </div>
     <div class='control-group'>
       <%= label_tag :password %>
